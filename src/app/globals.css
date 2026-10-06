@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jost), "Futura PT", Futura, ui-sans-serif, system-ui,
+    sans-serif;
+  --font-flare: var(--font-marcellus), "Arizona Flare", Georgia, serif;
+  --font-heading: var(--font-sans);
+  --color-cream: #f2eee7;
+  --color-maroon: #381819;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #f2eee7;
+  --foreground: #381819;
+  --card: #f2eee7;
+  --card-foreground: #381819;
+  --popover: #f2eee7;
+  --popover-foreground: #381819;
+  --primary: #381819;
+  --primary-foreground: #f2eee7;
+  --secondary: #e9e4da;
+  --secondary-foreground: #381819;
+  --muted: #e9e4da;
+  --muted-foreground: #6f5a52;
+  --accent: #e9e4da;
+  --accent-foreground: #381819;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(56, 24, 25, 0.25);
+  --input: rgba(56, 24, 25, 0.4);
+  --ring: #381819;
+  --radius: 0rem;
+  --sidebar: #f2eee7;
+  --sidebar-foreground: #381819;
+  --sidebar-primary: #381819;
+  --sidebar-primary-foreground: #f2eee7;
+  --sidebar-accent: #e9e4da;
+  --sidebar-accent-foreground: #381819;
+  --sidebar-border: rgba(56, 24, 25, 0.25);
+  --sidebar-ring: #381819;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  /* Tracked uppercase label used across the site (nav, section labels, card titles) */
+  .label-tracked {
+    @apply uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 400;
+  }
+
+  /* Underline-only form fields */
+  .field-underline {
+    @apply w-full bg-transparent border-0 border-b border-foreground/40 pb-2
+      placeholder:text-foreground/45 focus:outline-none focus:border-foreground
+      rounded-none transition-colors;
+    border-radius: 0;
+  }
+
+  /* Underlined text links like "About the Studio" / "Read Article" */
+  .link-underline {
+    @apply underline underline-offset-4 decoration-1 hover:opacity-70 transition-opacity;
+  }
+}
+
+/* Thin elegant slider chevrons */
+.chevron {
+  position: relative;
+  width: 14px;
+  height: 44px;
+}
+.chevron::before,
+.chevron::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 1px;
+  background: currentColor;
+  transform-origin: center;
+}
+.chevron-left::before {
+  transform: rotate(-38deg) translate(-2px, -9px);
+}
+.chevron-left::after {
+  transform: rotate(38deg) translate(-2px, 9px);
+}
+.chevron-right::before {
+  transform: rotate(38deg) translate(2px, -9px);
+}
+.chevron-right::after {
+  transform: rotate(-38deg) translate(2px, 9px);
+}
+
+/* Scroll reveal (fade-up) used by sections */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+@utility reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
